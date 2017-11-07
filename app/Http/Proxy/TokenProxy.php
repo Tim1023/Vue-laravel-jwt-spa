@@ -24,6 +24,19 @@ class TokenProxy{
         ],421 );
     }
 
+    public function logout()
+    {
+        $user = auth()->guard('api')->user();
+
+        $accessToken = $user->token();
+
+        app('db')->table('oauth_refresh_tokens')
+            ->where('access_token_id',$accessToken->id)
+            ->update([
+                'revoked' => true,
+            ]);
+    }
+
 
     public function proxy($grantType, array  $data = [])
     {
@@ -44,7 +57,7 @@ class TokenProxy{
             'token' => $token['access_token'],
 
             'expires_in' => $token['expires_in']
-        ])->cookie('refreshToken', $token['refresh_token'], 864000, null, null, false, true);
+        ])->cookie('refreshToken', $token['refresh_token'], 14400, null, null, false, true);
     }
 
 }

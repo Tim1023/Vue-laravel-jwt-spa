@@ -46,4 +46,8 @@ class LoginController extends Controller
         return $this->proxy->login(request('email'),
             request('password'));
     }
+    public function logout()
+    {
+        return $this->proxy->logout();
+    }
 }

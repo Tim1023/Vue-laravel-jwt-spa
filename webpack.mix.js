@@ -1,5 +1,13 @@
 let mix = require('laravel-mix');
 
+
+var tailwindcss = require('tailwindcss');
+
+mix.sass('resources/assets/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('./tailwind.js') ],
+    });
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -9,7 +17,7 @@ let mix = require('laravel-mix');
  | for your Laravel application. By default, we are compiling the Sass
  | file for the application as well as bundling up all the JS files.
  |
- */
-
+//  */
+//
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+//    .sass('resources/assets/sass/app.scss', 'public/css');

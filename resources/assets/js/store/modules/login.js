@@ -9,6 +9,10 @@ export default {
             }).catch(error => {
                 console.log(error.response.data)
             })
+        },
+        logoutRequest({dispatch}) {
+            jwtToken.removeToken()
+            dispatch('unsetAuthUser')
         }
     }
 }
