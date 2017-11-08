@@ -38,13 +38,16 @@
     </form>
 </template>
 <script>
-    import JWTToken from './../../helpers/jwt'
+    import JWTToken from './../../helpers/jwt';
+    import { ErrorBag } from 'vee-validate';
+
     export default {
 
         data() {
                 return {
                     password: '',
-                    email: ''
+                    email: '',
+                    bag: new ErrorBag()
                 }
         },
         methods: {
@@ -55,9 +58,17 @@
                             email: this.email,
                             password: this.password
                         };
-                        this.$store.dispatch('loginRequest', formData).then(response => {
-                            this.$router.push({name: 'profile'})
-                        })
+                        this.$store.dispatch('loginRequest', formData)
+                            .then(response => {
+                                this.$router.push({name: 'profile'})
+                            })
+                            .catch(error => {
+                                if(error.response.status === 421) {
+
+
+                                }
+                                console.log(error.response)
+                            })
                     }
 
                 });

@@ -35,6 +35,13 @@ class TokenProxy{
             ->update([
                 'revoked' => true,
             ]);
+        app('cookies')->forget('refreshToken');
+
+        $accessToken->revoke();
+
+        return response()->json([
+            'message' => 'logout!'
+        ],204);
     }
 
 
