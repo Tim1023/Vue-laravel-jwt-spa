@@ -1652,6 +1652,26 @@ button,
   border-left: 8px solid #dae4e9;
 }
 
+.border-12 {
+  border: 12px solid #dae4e9;
+}
+
+.border-t-12 {
+  border-top: 12px solid #dae4e9;
+}
+
+.border-r-12 {
+  border-right: 12px solid #dae4e9;
+}
+
+.border-b-12 {
+  border-bottom: 12px solid #dae4e9;
+}
+
+.border-l-12 {
+  border-left: 12px solid #dae4e9;
+}
+
 .border-transparent,
 .hover\:border-transparent:hover {
   border-color: transparent;
@@ -13037,6 +13057,26 @@ button.close {
     border-left: 8px solid #dae4e9;
   }
 
+  .sm\:border-12 {
+    border: 12px solid #dae4e9;
+  }
+
+  .sm\:border-t-12 {
+    border-top: 12px solid #dae4e9;
+  }
+
+  .sm\:border-r-12 {
+    border-right: 12px solid #dae4e9;
+  }
+
+  .sm\:border-b-12 {
+    border-bottom: 12px solid #dae4e9;
+  }
+
+  .sm\:border-l-12 {
+    border-left: 12px solid #dae4e9;
+  }
+
   .sm\:border-transparent,
   .sm\:hover\:border-transparent:hover {
     border-color: transparent;
@@ -16066,6 +16106,26 @@ button.close {
 
   .md\:border-l-8 {
     border-left: 8px solid #dae4e9;
+  }
+
+  .md\:border-12 {
+    border: 12px solid #dae4e9;
+  }
+
+  .md\:border-t-12 {
+    border-top: 12px solid #dae4e9;
+  }
+
+  .md\:border-r-12 {
+    border-right: 12px solid #dae4e9;
+  }
+
+  .md\:border-b-12 {
+    border-bottom: 12px solid #dae4e9;
+  }
+
+  .md\:border-l-12 {
+    border-left: 12px solid #dae4e9;
   }
 
   .md\:border-transparent,
@@ -19099,6 +19159,26 @@ button.close {
     border-left: 8px solid #dae4e9;
   }
 
+  .lg\:border-12 {
+    border: 12px solid #dae4e9;
+  }
+
+  .lg\:border-t-12 {
+    border-top: 12px solid #dae4e9;
+  }
+
+  .lg\:border-r-12 {
+    border-right: 12px solid #dae4e9;
+  }
+
+  .lg\:border-b-12 {
+    border-bottom: 12px solid #dae4e9;
+  }
+
+  .lg\:border-l-12 {
+    border-left: 12px solid #dae4e9;
+  }
+
   .lg\:border-transparent,
   .lg\:hover\:border-transparent:hover {
     border-color: transparent;
@@ -22128,6 +22208,26 @@ button.close {
 
   .xl\:border-l-8 {
     border-left: 8px solid #dae4e9;
+  }
+
+  .xl\:border-12 {
+    border: 12px solid #dae4e9;
+  }
+
+  .xl\:border-t-12 {
+    border-top: 12px solid #dae4e9;
+  }
+
+  .xl\:border-r-12 {
+    border-right: 12px solid #dae4e9;
+  }
+
+  .xl\:border-b-12 {
+    border-bottom: 12px solid #dae4e9;
+  }
+
+  .xl\:border-l-12 {
+    border-left: 12px solid #dae4e9;
   }
 
   .xl\:border-transparent,
