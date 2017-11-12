@@ -8,6 +8,7 @@
                 <input v-model="email"
                        v-validate="{rules: { required: true, email: true}}"
                        data-vv-rules="required|email" data-vv-as="Email"
+                       data-vv-delay="1000"
                        id="email" type="email"  name="email"
                        class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow"
                        placeholder="Your Email" required>
@@ -21,6 +22,7 @@
                        v-model="password"
                        v-validate="{rules: { required: true, min: 6}}"
                        data-vv-rules="required|min:6" data-vv-as="Password"
+                       data-vv-delay="1000"
                        id="password" type="password" name="password" required
                        @click="clearBagError">
                 <span class="help-block" v-show="errors.has('password')" >{{errors.first('password')}}</span>
