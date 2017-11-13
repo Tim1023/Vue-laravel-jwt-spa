@@ -50,7 +50,7 @@
                 <input id="password-confirm"
                        v-validate="confirmPasswordRules"
                        data-vv-as="Confirmed password"
-                       @blur="passwordConfirmBlur = true"
+                       @keyup="passwordConfirmKeyUp = true"
                        data-vv-delay="1000"
                        type="password" class="form-control" name="password_confirmation" >
                 <span class="help-block" v-show=" errors.has('password_confirmation')" >{{errors.first('password_confirmation')}}</span>
@@ -75,12 +75,12 @@
                     name: '',
                     password: '',
                     email: '',
-                    passwordConfirmBlur: false
+                    passwordConfirmKeyUp: false
                 }
         },
         computed: {
             confirmPasswordRules: function () {
-                if(this.passwordConfirmBlur){
+                if(this.passwordConfirmKeyUp){
                     return {rules: { required: true, confirmed: 'password'}}
                 }
                 else return ""

@@ -53973,13 +53973,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             name: '',
             password: '',
             email: '',
-            passwordConfirmBlur: false
+            passwordConfirmKeyUp: false
         };
     },
 
     computed: {
         confirmPasswordRules: function confirmPasswordRules() {
-            if (this.passwordConfirmBlur) {
+            if (this.passwordConfirmKeyUp) {
                 return { rules: { required: true, confirmed: 'password' } };
             } else return "";
         }
@@ -54265,8 +54265,8 @@ var render = function() {
                 name: "password_confirmation"
               },
               on: {
-                blur: function($event) {
-                  _vm.passwordConfirmBlur = true
+                keyup: function($event) {
+                  _vm.passwordConfirmKeyUp = true
                 }
               }
             }),
