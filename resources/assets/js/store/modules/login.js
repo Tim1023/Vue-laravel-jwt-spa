@@ -8,8 +8,12 @@ export default {
                 dispatch("setAuthUser")
             })
         },
+        loginSuccess({dispatch},tokenResponse) {
+                jwtToken.setToken(tokenResponse.token);
+                dispatch("setAuthUser")
+        },
         logoutRequest({dispatch}) {
-            jwtToken.removeToken()
+            jwtToken.removeToken();
 
             dispatch('unsetAuthUser')
         }

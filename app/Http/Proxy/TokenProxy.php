@@ -23,6 +23,16 @@ class TokenProxy{
             'message' => 'Credentials not match'
         ],421 );
     }
+    public function refresh()
+    {
+        $refreshToken = request()->cookie('refreshToken');
+
+        return $this->proxy('refresh_token',[
+            'refresh_token' =>$refreshToken
+        ]);
+    }
+
+
 
     public function logout()
     {

@@ -1,12 +1,12 @@
 import * as types from './../mutation-type'
 
 export default {
-    state : {
+    state: {
         authenticated: false,
         name: null,
         email: null
     },
-    mutations:{
+    mutations: {
         [types.SET_AUTH_USER](state, payload){
             state.authenticated = true;
             state.name = payload.user.name;
@@ -18,14 +18,16 @@ export default {
             state.email = null;
         }
     },
-    actions : {
-        setAuthUser({commit,dispatch}){
-           return axios.get('/api/user').then(response => {
+    actions: {
+        setAuthUser({commit, dispatch}){
+            return axios.get('/api/user').then(response => {
                 commit({
-                    type:types.SET_AUTH_USER,
-                    user:response.data
+                    type: types.SET_AUTH_USER,
+                    user: response.data
 
                 });
+            }).catch(error => {
+                dispatch('refreshToken')
             })
         },
 
@@ -33,12 +35,20 @@ export default {
 
             return axios.get('/api/logout').then(response => {
                 commit({
-                    type:types.UNSET_AUTH_USER,
-                    user:response.data
+                    type: types.UNSET_AUTH_USER,
+                    user: response.data
 
                 });
             })
         },
-        }
+        refreshToken({commit, dispatch}) {
+            return axios.post('/api/token/refresh').then(response => {
+                dispatch('loginSuccess',response.data)
 
-    }
+            }).catch(error => {
+                dispatch('logoutRequest')
+            })
+        },
+
+    },
+}

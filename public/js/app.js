@@ -53096,6 +53096,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     user: response.data
 
                 });
+            }).catch(function (error) {
+                dispatch('refreshToken');
             });
         },
         unsetAuthUser: function unsetAuthUser(_ref2) {
@@ -53109,9 +53111,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 });
             });
+        },
+        refreshToken: function refreshToken(_ref3) {
+            var commit = _ref3.commit,
+                dispatch = _ref3.dispatch;
+
+            return axios.post('/api/token/refresh').then(function (response) {
+                dispatch('loginSuccess', response.data);
+            }).catch(function (error) {
+                dispatch('logoutRequest');
+            });
         }
     }
-
 });
 
 /***/ }),
@@ -53143,8 +53154,14 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
                 dispatch("setAuthUser");
             });
         },
-        logoutRequest: function logoutRequest(_ref2) {
+        loginSuccess: function loginSuccess(_ref2, tokenResponse) {
             var dispatch = _ref2.dispatch;
+
+            __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].setToken(tokenResponse.token);
+            dispatch("setAuthUser");
+        },
+        logoutRequest: function logoutRequest(_ref3) {
+            var dispatch = _ref3.dispatch;
 
             __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].removeToken();
 
