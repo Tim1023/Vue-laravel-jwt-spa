@@ -39,8 +39,6 @@ class TokenProxy{
     {
         $user = auth()->guard('api')->user();
 
-        dd($user);
-
         $accessToken = $user->token();
 
         app('db')->table('oauth_refresh_tokens')
@@ -48,13 +46,12 @@ class TokenProxy{
             ->update([
                 'revoked' => true,
             ]);
-        app('cookie')->queue(app('cookie')->forget('refreshToken'));
 
         $accessToken->revoke();
 
         return response()->json([
             'message' => 'logout!'
-        ],204);
+        ],204)->cookie('refreshToken', '', 0, null);
     }
 
 
@@ -70,6 +67,7 @@ class TokenProxy{
         $response = $this->http->post('http://vue-spa.dev/oauth/token', [
             'form_params' => $data
         ]);
+
 
         $token = json_decode((string) $response->getBody(),true);
 

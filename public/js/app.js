@@ -22049,7 +22049,6 @@ window.Vue = __webpack_require__(11);
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     if (__WEBPACK_IMPORTED_MODULE_3__helpers_jwt__["a" /* default */].getToken()) {
-        console.log("!!@#@!#!@#!@#!@");
         config.headers['Authorization'] = 'Bearer ' + __WEBPACK_IMPORTED_MODULE_3__helpers_jwt__["a" /* default */].getToken();
     }
     return config;
@@ -53105,12 +53104,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref2.commit;
 
 
-            return axios.post('/api/logout').then(function (response) {
-                commit({
-                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* UNSET_AUTH_USER */],
-                    user: response.data
-
-                });
+            commit({
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* UNSET_AUTH_USER */]
             });
         },
         refreshToken: function refreshToken(_ref3) {
@@ -53164,9 +53159,11 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
         logoutRequest: function logoutRequest(_ref3) {
             var dispatch = _ref3.dispatch;
 
-            __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].removeToken();
+            return axios.post('/api/logout').then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].removeToken();
 
-            dispatch('unsetAuthUser');
+                dispatch('unsetAuthUser');
+            });
         }
     }
 });

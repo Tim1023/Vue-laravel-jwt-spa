@@ -13,9 +13,12 @@ export default {
                 dispatch("setAuthUser")
         },
         logoutRequest({dispatch}) {
-            jwtToken.removeToken();
+            return axios.post('/api/logout').then(response => {
+                jwtToken.removeToken();
 
-            dispatch('unsetAuthUser')
+                dispatch('unsetAuthUser')
+
+            });
         }
     }
 }
