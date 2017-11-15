@@ -33,7 +33,7 @@ export default {
 
         unsetAuthUser({commit}) {
 
-            return axios.get('/api/logout').then(response => {
+            return axios.post('/api/logout').then(response => {
                 commit({
                     type: types.UNSET_AUTH_USER,
                     user: response.data

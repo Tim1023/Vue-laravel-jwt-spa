@@ -22049,6 +22049,7 @@ window.Vue = __webpack_require__(11);
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     if (__WEBPACK_IMPORTED_MODULE_3__helpers_jwt__["a" /* default */].getToken()) {
+        console.log("!!@#@!#!@#!@#!@");
         config.headers['Authorization'] = 'Bearer ' + __WEBPACK_IMPORTED_MODULE_3__helpers_jwt__["a" /* default */].getToken();
     }
     return config;
@@ -53104,7 +53105,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref2.commit;
 
 
-            return axios.get('/api/logout').then(function (response) {
+            return axios.post('/api/logout').then(function (response) {
                 commit({
                     type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* UNSET_AUTH_USER */],
                     user: response.data
@@ -55015,6 +55016,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(14);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
 //
 //
 //
@@ -55034,7 +55040,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])({
+        user: function user(state) {
+            return state.AuthUser;
+        }
+    }))
+});
 
 /***/ }),
 /* 77 */
@@ -55044,27 +55057,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+        _c("div", { staticClass: "panel panel-default" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("strong", [_vm._v("User name : " + _vm._s(_vm.user.name))]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("strong", [_vm._v("User email : " + _vm._s(_vm.user.email))])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-          _c("div", { staticClass: "panel panel-default" }, [
-            _c("div", { staticClass: "panel-heading" }, [
-              _c("h4", [_vm._v("Logged in")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "panel-body" }, [
-              _c("strong", [_vm._v("User profile")])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h4", [_vm._v("Logged in")])
     ])
   }
 ]

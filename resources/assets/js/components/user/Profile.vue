@@ -8,7 +8,9 @@
                     </div>
 
                     <div class="panel-body">
-                        <strong>User profile</strong>
+                        <strong>User name : {{user.name}}</strong>
+                        <br/>
+                        <strong>User email : {{user.email}}</strong>
                     </div>
                 </div>
             </div>
@@ -17,6 +19,12 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     export default {
+        computed: {
+            ...mapState({
+                user: state => state.AuthUser
+            })
+        }
     }
 </script>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Proxy;
+
 class TokenProxy{
     protected $http;
     public function __construct(\GuzzleHttp\Client $http)
@@ -38,6 +39,8 @@ class TokenProxy{
     {
         $user = auth()->guard('api')->user();
 
+        dd($user);
+
         $accessToken = $user->token();
 
         app('db')->table('oauth_refresh_tokens')
@@ -45,7 +48,7 @@ class TokenProxy{
             ->update([
                 'revoked' => true,
             ]);
-        app('cookies')->forget('refreshToken');
+        app('cookie')->queue(app('cookie')->forget('refreshToken'));
 
         $accessToken->revoke();
 
