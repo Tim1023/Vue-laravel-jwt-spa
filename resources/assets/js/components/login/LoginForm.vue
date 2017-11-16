@@ -2,9 +2,9 @@
     <form class="w-1/3"  @submit.prevent="login" >
 
         <h1 class="font-hairline mb-6 text-center">Login to our Website</h1>
-        <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg has-error "  :class="{'has-error' : errors.has('email')}">
+        <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg has-error ">
             <div class="mb-4">
-                <label class="font-bold text-grey-darker block mb-2">Email</label>
+                <label class="font-bold text-grey-darker block mb-2" :class="{'has-error' : errors.has('email')}">Email</label>
                 <input v-model="email"
                        v-validate="{rules: { required: true, email: true}}"
                        data-vv-rules="required|email" data-vv-as="Email"
