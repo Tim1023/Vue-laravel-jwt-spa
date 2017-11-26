@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie'
+
 export default {
     setToken(token){
         window.localStorage.setItem('jwt_token',token);
@@ -7,5 +9,11 @@ export default {
     },
     removeToken(){
         window.localStorage.removeItem('jwt_token')
-    }
+    },
+    setRefreshToken(refreshToken){
+        Cookie.set('refresh',refreshToken)
+    },
+    removeRefreshToken(){
+        Cookie.remove('refresh')
+    },
 }

@@ -42,7 +42,6 @@ let routes = [
     },
     {
         path: '/profile',
-        name: 'profile',
         component: require('./components/user/ProfileWrapper'),
         children: [
             {

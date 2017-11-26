@@ -40,7 +40,6 @@ export default {
         refreshToken({commit, dispatch}) {
             return axios.post('/api/token/refresh').then(response => {
                 dispatch('loginSuccess',response.data)
-
             }).catch(error => {
                 dispatch('logoutRequest')
             })
