@@ -5,12 +5,12 @@
             <div class="mb-4">
                 <label class="font-bold text-grey-darker block mb-2" :class="{'has-error' : errors.has('name')}">Name</label>
                 <input v-model="name"
-                       v-validate="{rules: { required: true, name: true}}"
-                       data-vv-rules="required|name" data-vv-as="Email"
+                       v-validate="{rules: { required: true}}"
+                       data-vv-rules="required|name" data-vv-as="Name"
                        data-vv-delay="1000"
                        id="name" type="text"  name="name"
                        class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow"
-                       placeholder="Your Email" required>
+                       placeholder="Your Name" required>
                 <span class="help-block " v-show="errors.has('name')" >{{errors.first('name')}}</span>
 
             </div>

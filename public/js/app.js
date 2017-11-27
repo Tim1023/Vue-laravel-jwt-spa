@@ -55687,20 +55687,20 @@ var render = function() {
                 {
                   name: "validate",
                   rawName: "v-validate",
-                  value: { rules: { required: true, name: true } },
-                  expression: "{rules: { required: true, name: true}}"
+                  value: { rules: { required: true } },
+                  expression: "{rules: { required: true}}"
                 }
               ],
               staticClass:
                 "block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow",
               attrs: {
                 "data-vv-rules": "required|name",
-                "data-vv-as": "Email",
+                "data-vv-as": "Name",
                 "data-vv-delay": "1000",
                 id: "name",
                 type: "text",
                 name: "name",
-                placeholder: "Your Email",
+                placeholder: "Your Name",
                 required: ""
               },
               domProps: { value: _vm.name },
