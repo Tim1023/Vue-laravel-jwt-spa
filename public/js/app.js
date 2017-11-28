@@ -643,10 +643,10 @@ module.exports = defaults;
 "use strict";
 /* unused harmony export Store */
 /* unused harmony export install */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapState; });
 /* unused harmony export mapMutations */
 /* unused harmony export mapGetters */
-/* unused harmony export mapActions */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapActions; });
 /* unused harmony export createNamespacedHelpers */
 /**
  * vuex v3.0.0
@@ -22007,6 +22007,8 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_login__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_notification__ = __webpack_require__(108);
+
 
 
 
@@ -22022,7 +22024,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         AuthUser: __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__["a" /* default */],
         Login: __WEBPACK_IMPORTED_MODULE_3__modules_login__["a" /* default */],
         EditProfile: __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__["a" /* default */],
-        EditPassword: __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__["a" /* default */]
+        EditPassword: __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__["a" /* default */],
+        Notification: __WEBPACK_IMPORTED_MODULE_6__modules_notification__["a" /* default */]
     },
     strict: true
 }));
@@ -53283,15 +53286,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: null,
         email: null
     },
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* UPDATE_PROFILE_NAME */], function (state, payload) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["f" /* UPDATE_PROFILE_NAME */], function (state, payload) {
         state.name = payload.value;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* UPDATE_PROFILE_EMAIL */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["e" /* UPDATE_PROFILE_EMAIL */], function (state, payload) {
         state.email = payload.value;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* SET_AUTH_USER */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* SET_AUTH_USER */], function (state, payload) {
         state.authenticated = true;
         state.name = payload.user.name;
         state.email = payload.user.email;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* UNSET_AUTH_USER */], function (state) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* UNSET_AUTH_USER */], function (state) {
         state.authenticated = false;
         state.name = null;
         state.email = null;
@@ -53303,7 +53306,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             return axios.get('/api/user').then(function (response) {
                 commit({
-                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* SET_AUTH_USER */],
+                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* SET_AUTH_USER */],
                     user: response.data
 
                 });
@@ -53316,7 +53319,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* UNSET_AUTH_USER */]
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* UNSET_AUTH_USER */]
             });
         },
         refreshToken: function refreshToken(_ref3) {
@@ -53337,10 +53340,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_AUTH_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UNSET_AUTH_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UPDATE_PROFILE_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UPDATE_PROFILE_EMAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UNSET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UPDATE_PROFILE_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_PROFILE_EMAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SHOW_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HIDE_NOTIFICATION; });
 var SET_AUTH_USER = 'SET_AUTH_USER';
 
 var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
@@ -53348,6 +53353,10 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
 var UPDATE_PROFILE_NAME = 'UPDATE_PROFILE_NAME';
 
 var UPDATE_PROFILE_EMAIL = 'UPDATE_PROFILE_EMAIL';
+
+var SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
+
+var HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';
 
 /***/ }),
 /* 48 */
@@ -55232,6 +55241,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(5);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -55251,8 +55263,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'profile-wrapper'
+    name: 'profile-wrapper',
+
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])(['hideNotification']))
 });
 
 /***/ }),
@@ -55277,6 +55293,11 @@ var render = function() {
                 to: { name: "profile" },
                 activeClass: "active",
                 exact: ""
+              },
+              nativeOn: {
+                click: function($event) {
+                  _vm.hideNotification()
+                }
               }
             },
             [_vm._v("Profile")]
@@ -55290,6 +55311,11 @@ var render = function() {
                 to: { name: "profile.editProfile" },
                 activeClass: "active",
                 exact: ""
+              },
+              nativeOn: {
+                click: function($event) {
+                  _vm.hideNotification()
+                }
               }
             },
             [_vm._v("Update Profile")]
@@ -55303,6 +55329,11 @@ var render = function() {
                 to: { name: "profile.editPassword" },
                 activeClass: "active",
                 exact: ""
+              },
+              nativeOn: {
+                click: function($event) {
+                  _vm.hideNotification()
+                }
               }
             },
             [_vm._v("Change Password")]
@@ -55417,7 +55448,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])({
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])({
         user: function user(state) {
             return state.AuthUser;
         }
@@ -55659,7 +55690,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             set: function set(value) {
                 this.$store.commit({
-                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["d" /* UPDATE_PROFILE_NAME */],
+                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["f" /* UPDATE_PROFILE_NAME */],
                     value: value
                 });
             }
@@ -55670,7 +55701,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             set: function set(value) {
                 this.$store.commit({
-                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["c" /* UPDATE_PROFILE_EMAIL */],
+                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["e" /* UPDATE_PROFILE_EMAIL */],
                     value: value
                 });
             }
@@ -56105,7 +56136,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     };
                     _this.$store.dispatch('updatePasswordRequest', formData).then(function (response) {
                         //                                this.$router.push({name: 'profile'})
-                        console.log('success');
                     }).catch(function (error) {
                         //
                     });
@@ -56376,9 +56406,11 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_TopMenu__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_TopMenu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__common_TopMenu__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_jwt__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_cookie__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_cookie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_js_cookie__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_Notification__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_Notification___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_Notification__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_jwt__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_js_cookie__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_js_cookie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_js_cookie__);
 //
 //
 //
@@ -56388,15 +56420,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
-        if (__WEBPACK_IMPORTED_MODULE_1__helpers_jwt__["a" /* default */].getToken()) {
+        if (__WEBPACK_IMPORTED_MODULE_2__helpers_jwt__["a" /* default */].getToken()) {
             this.$store.dispatch('setAuthUser');
-        } else if (__WEBPACK_IMPORTED_MODULE_2_js_cookie___default.a.get('refresh')) {
+        } else if (__WEBPACK_IMPORTED_MODULE_3_js_cookie___default.a.get('refresh')) {
             this.$store.dispatch('refreshToken');
         } else {
             this.$store.dispatch('unsetAuthUser');
@@ -56404,7 +56438,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     components: {
-        TopMenu: __WEBPACK_IMPORTED_MODULE_0__common_TopMenu___default.a
+        TopMenu: __WEBPACK_IMPORTED_MODULE_0__common_TopMenu___default.a,
+        Notification: __WEBPACK_IMPORTED_MODULE_1__common_Notification___default.a
     }
 });
 
@@ -56485,7 +56520,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])({
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])({
         user: function user(state) {
             return state.AuthUser;
         }
@@ -56599,6 +56634,8 @@ var render = function() {
     [
       _c("top-menu"),
       _vm._v(" "),
+      _c("notification"),
+      _vm._v(" "),
       _c(
         "transition",
         { attrs: { name: "fade", mode: "out-in" } },
@@ -56665,11 +56702,218 @@ if (false) {
             var dispatch = _ref.dispatch;
 
             return axios.post('/api/user/password/update', formData).then(function (response) {
-                //
-            }).catch(function (errors) {});
+                dispatch('showNotification', { level: 'success', msg: 'Update Password success' });
+            }).catch(function (errors) {
+                dispatch('showNotification', { level: 'error', msg: 'Update Password failed' });
+            });
         }
     }
 });
+
+/***/ }),
+/* 108 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutation_type__ = __webpack_require__(47);
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: {
+        level: 'success', //info error
+        msg: null
+    },
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SHOW_NOTIFICATION */], function (state, payload) {
+        state.level = payload.notification.level;
+        state.msg = payload.notification.msg;
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* HIDE_NOTIFICATION */], function (state, payload) {
+        state.level = 'success';
+        state.msg = null;
+    }), _mutations),
+    actions: {
+        showNotification: function showNotification(_ref, notification) {
+            var commit = _ref.commit;
+
+            commit({
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SHOW_NOTIFICATION */],
+                notification: notification
+
+            });
+        },
+        hideNotification: function hideNotification(_ref2) {
+            var commit = _ref2.commit;
+
+            commit({
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* HIDE_NOTIFICATION */]
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(110)
+/* template */
+var __vue_template__ = __webpack_require__(111)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/common/Notification.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6627495a", Component.options)
+  } else {
+    hotAPI.reload("data-v-6627495a", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 110 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(5);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'notification',
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])({
+        level: function level(state) {
+            return state.Notification.level;
+        },
+        msg: function msg(state) {
+            return state.Notification.msg;
+        }
+    }), {
+        notificationLevel: function notificationLevel() {
+            return 'alert-' + this.level;
+        }
+    }),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])(['hideNotification']))
+});
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "notification" },
+      [
+        _c("transition", { attrs: { name: "fade", mode: "in-out" } }, [
+          _vm.msg
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert",
+                  class: _vm.notificationLevel,
+                  on: {
+                    click: function($event) {
+                      _vm.hideNotification()
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "alert",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                " + _vm._s(_vm.msg) + "\n            "
+                  )
+                ]
+              )
+            : _vm._e()
+        ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6627495a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

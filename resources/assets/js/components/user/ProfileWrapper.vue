@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-3">
             <div class="list-group">
-                <router-link :to="{name: 'profile'}" class="list-group-item" activeClass="active" exact>Profile</router-link>
-                <router-link :to="{name: 'profile.editProfile'}" class="list-group-item" activeClass="active" exact>Update Profile</router-link>
-                <router-link :to="{name: 'profile.editPassword'}" class="list-group-item" activeClass="active" exact>Change Password</router-link>
+                <router-link :to="{name: 'profile'}" @click.native="hideNotification()" class="list-group-item" activeClass="active" exact>Profile</router-link>
+                <router-link :to="{name: 'profile.editProfile'}" @click.native="hideNotification()" class="list-group-item" activeClass="active" exact>Update Profile</router-link>
+                <router-link :to="{name: 'profile.editPassword'}" @click.native="hideNotification()" class="list-group-item" activeClass="active" exact>Change Password</router-link>
 
             </div>
         </div>
@@ -17,7 +17,16 @@
 </template>
 
 <script>
+    import {mapState, mapActions} from 'vuex'
+
     export default{
-        name: 'profile-wrapper'
+        name: 'profile-wrapper',
+
+        methods:{
+            ...mapActions([
+                'hideNotification'
+
+            ])
+        }
     }
 </script>
