@@ -22006,6 +22006,8 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_login__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__ = __webpack_require__(107);
+
 
 
 
@@ -22019,7 +22021,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
     modules: {
         AuthUser: __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__["a" /* default */],
         Login: __WEBPACK_IMPORTED_MODULE_3__modules_login__["a" /* default */],
-        EditProfile: __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__["a" /* default */]
+        EditProfile: __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__["a" /* default */],
+        EditPassword: __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__["a" /* default */]
     },
     strict: true
 }));
@@ -56091,7 +56094,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else return "";
         }
     },
-    methods: {}
+    methods: {
+        updatePassword: function updatePassword() {
+            var _this = this;
+
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    var formData = {
+                        password: _this.password
+                    };
+                    _this.$store.dispatch('updatePasswordRequest', formData).then(function (response) {
+                        //                                this.$router.push({name: 'profile'})
+                        console.log('success');
+                    }).catch(function (error) {
+                        //
+                    });
+                }
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -56109,7 +56130,7 @@ var render = function() {
       on: {
         submit: function($event) {
           $event.preventDefault()
-          _vm.register($event)
+          _vm.updatePassword($event)
         }
       }
     },
@@ -56626,6 +56647,24 @@ if (false) {
             var dispatch = _ref.dispatch;
 
             return axios.post('/api/user/profile/update', formData).then(function (response) {
+                //
+            }).catch(function (errors) {});
+        }
+    }
+});
+
+/***/ }),
+/* 107 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    actions: {
+        updatePasswordRequest: function updatePasswordRequest(_ref, formData) {
+            var dispatch = _ref.dispatch;
+
+            return axios.post('/api/user/password/update', formData).then(function (response) {
                 //
             }).catch(function (errors) {});
         }
