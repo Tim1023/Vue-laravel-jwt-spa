@@ -1,5 +1,5 @@
 <template>
-    <form class="w-1/3"  @submit.prevent="login" >
+    <form class="w-1/3"  @submit.prevent="updateProfile" >
 
         <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg has-error">
             <div class="mb-4">
@@ -41,12 +41,48 @@
 <script>
     import JWTToken from './../../helpers/jwt';
     import { ErrorBag } from 'vee-validate';
+    import * as types from './../../store/mutation-type'
 
     export default {
-        data() {
-            return {
-                name:'',
-                email:''
+        created(){
+            this.$store.dispatch('setAuthUser');
+        },
+        computed:{
+            name: {
+                get(){
+                    return this.$store.state.AuthUser.name;
+                },
+                set(value){
+                    this.$store.commit({
+                        type: types.UPDATE_PROFILE_NAME,
+                        value: value
+                    })
+                }
+            },
+            email: {
+                get(){
+                    return this.$store.state.AuthUser.email;
+                },
+                set(value){
+                    this.$store.commit({
+                        type: types.UPDATE_PROFILE_EMAIL,
+                        value: value
+                    })
+                }
+            }
+        },
+        methods:{
+            updateProfile() {
+                const formData = {
+                    name: this.name,
+                    email: this.email
+                };
+                this.$store.dispatch('updateProfileRequest',formData).then(response => {
+                    this.$router.push({name:'profile'})
+                }).catch(error => {
+
+                })
+
             }
         }
 

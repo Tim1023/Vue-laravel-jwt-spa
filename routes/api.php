@@ -22,7 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/posts','Postscontroller@index');
 Route::get('/posts/{post}','Postscontroller@show');
 
+
 Route::post('/register','Auth\RegisterController@register');
 Route::post('/login','Auth\LoginController@login');
 Route::middleware('auth:api')->post('/logout','Auth\LoginController@logout');
 Route::post('/token/refresh','Auth\LoginController@refresh');
+
+
+Route::post('/user/profile/update','ProfileController@update')->middleware('auth:api');

@@ -22005,6 +22005,9 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_login__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__ = __webpack_require__(106);
+
+
 
 
 
@@ -22015,7 +22018,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
         AuthUser: __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__["a" /* default */],
-        Login: __WEBPACK_IMPORTED_MODULE_3__modules_login__["a" /* default */]
+        Login: __WEBPACK_IMPORTED_MODULE_3__modules_login__["a" /* default */],
+        EditProfile: __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__["a" /* default */]
     },
     strict: true
 }));
@@ -53276,7 +53280,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: null,
         email: null
     },
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* SET_AUTH_USER */], function (state, payload) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* UPDATE_PROFILE_NAME */], function (state, payload) {
+        state.name = payload.value;
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* UPDATE_PROFILE_EMAIL */], function (state, payload) {
+        state.email = payload.value;
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* SET_AUTH_USER */], function (state, payload) {
         state.authenticated = true;
         state.name = payload.user.name;
         state.email = payload.user.email;
@@ -53328,9 +53336,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_AUTH_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UNSET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UPDATE_PROFILE_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UPDATE_PROFILE_EMAIL; });
 var SET_AUTH_USER = 'SET_AUTH_USER';
 
 var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
+
+var UPDATE_PROFILE_NAME = 'UPDATE_PROFILE_NAME';
+
+var UPDATE_PROFILE_EMAIL = 'UPDATE_PROFILE_EMAIL';
 
 /***/ }),
 /* 48 */
@@ -53346,9 +53360,7 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
             var dispatch = _ref.dispatch;
 
             return axios.post('/api/login', formData).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].setToken(response.data.token);
-                __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].setRefreshToken(response.data.refreshToken);
-                dispatch("setAuthUser");
+                dispatch('loginSuccess', response.data);
             });
         },
         loginSuccess: function loginSuccess(_ref2, tokenResponse) {
@@ -55586,6 +55598,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vee_validate__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__ = __webpack_require__(47);
 //
 //
 //
@@ -55626,17 +55639,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            name: '',
-            email: ''
-        };
+    created: function created() {
+        this.$store.dispatch('setAuthUser');
+    },
+
+    computed: {
+        name: {
+            get: function get() {
+                return this.$store.state.AuthUser.name;
+            },
+            set: function set(value) {
+                this.$store.commit({
+                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["d" /* UPDATE_PROFILE_NAME */],
+                    value: value
+                });
+            }
+        },
+        email: {
+            get: function get() {
+                return this.$store.state.AuthUser.email;
+            },
+            set: function set(value) {
+                this.$store.commit({
+                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["c" /* UPDATE_PROFILE_EMAIL */],
+                    value: value
+                });
+            }
+        }
+    },
+    methods: {
+        updateProfile: function updateProfile() {
+            var _this = this;
+
+            var formData = {
+                name: this.name,
+                email: this.email
+            };
+            this.$store.dispatch('updateProfileRequest', formData).then(function (response) {
+                _this.$router.push({ name: 'profile' });
+            }).catch(function (error) {});
+        }
     }
+
 });
 
 /***/ }),
@@ -55654,7 +55704,7 @@ var render = function() {
       on: {
         submit: function($event) {
           $event.preventDefault()
-          _vm.login($event)
+          _vm.updateProfile($event)
         }
       }
     },
@@ -56559,6 +56609,28 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    actions: {
+        updateProfileRequest: function updateProfileRequest(_ref, formData) {
+            var dispatch = _ref.dispatch;
+
+            return axios.post('/api/user/profile/update', formData).then(function (response) {
+                //
+            }).catch(function (errors) {});
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
