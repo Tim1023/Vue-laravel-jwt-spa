@@ -16,9 +16,17 @@
     export default {
         created(){
           if(jwtToken.getToken()){
+
+              this.$store.dispatch('firstLoadAuthUser')
+
               this.$store.dispatch('setAuthUser')
+
           }else if(Cookie.get('refresh')) {
+
+              this.$store.dispatch('firstLoadAuthUser')
+
               this.$store.dispatch('refreshToken')
+
           }else {
               this.$store.dispatch('unsetAuthUser')
           }

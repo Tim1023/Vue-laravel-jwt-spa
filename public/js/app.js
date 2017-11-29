@@ -53283,15 +53283,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: null,
         email: null
     },
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["f" /* UPDATE_PROFILE_NAME */], function (state, payload) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["g" /* UPDATE_PROFILE_NAME */], function (state, payload) {
         state.name = payload.value;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["e" /* UPDATE_PROFILE_EMAIL */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["f" /* UPDATE_PROFILE_EMAIL */], function (state, payload) {
         state.email = payload.value;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* SET_AUTH_USER */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* FIRST_LOAD_AUTH_USER */], function (state) {
+        state.authenticated = true;
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SET_AUTH_USER */], function (state, payload) {
         state.authenticated = true;
         state.name = payload.user.name;
         state.email = payload.user.email;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* UNSET_AUTH_USER */], function (state) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["e" /* UNSET_AUTH_USER */], function (state) {
         state.authenticated = false;
         state.name = null;
         state.email = null;
@@ -53303,7 +53305,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             return axios.get('/api/user').then(function (response) {
                 commit({
-                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* SET_AUTH_USER */],
+                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SET_AUTH_USER */],
                     user: response.data
 
                 });
@@ -53311,17 +53313,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 dispatch('refreshToken');
             });
         },
-        unsetAuthUser: function unsetAuthUser(_ref2) {
+        firstLoadAuthUser: function firstLoadAuthUser(_ref2) {
             var commit = _ref2.commit;
+
+            commit({
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* FIRST_LOAD_AUTH_USER */]
+            });
+        },
+        unsetAuthUser: function unsetAuthUser(_ref3) {
+            var commit = _ref3.commit;
 
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* UNSET_AUTH_USER */]
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["e" /* UNSET_AUTH_USER */]
             });
         },
-        refreshToken: function refreshToken(_ref3) {
-            var commit = _ref3.commit,
-                dispatch = _ref3.dispatch;
+        refreshToken: function refreshToken(_ref4) {
+            var commit = _ref4.commit,
+                dispatch = _ref4.dispatch;
 
             return axios.post('/api/token/refresh').then(function (response) {
                 dispatch('loginSuccess', response.data);
@@ -53337,12 +53346,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_AUTH_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UNSET_AUTH_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UPDATE_PROFILE_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_PROFILE_EMAIL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SHOW_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HIDE_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UNSET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return UPDATE_PROFILE_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UPDATE_PROFILE_EMAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SHOW_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HIDE_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FIRST_LOAD_AUTH_USER; });
 var SET_AUTH_USER = 'SET_AUTH_USER';
 
 var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
@@ -53354,6 +53364,8 @@ var UPDATE_PROFILE_EMAIL = 'UPDATE_PROFILE_EMAIL';
 var SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
 
 var HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';
+
+var FIRST_LOAD_AUTH_USER = 'FIRST_LOAD_AUTH_USER';
 
 /***/ }),
 /* 48 */
@@ -55687,7 +55699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             set: function set(value) {
                 this.$store.commit({
-                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["f" /* UPDATE_PROFILE_NAME */],
+                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["g" /* UPDATE_PROFILE_NAME */],
                     value: value
                 });
             }
@@ -55698,7 +55710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             set: function set(value) {
                 this.$store.commit({
-                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["e" /* UPDATE_PROFILE_EMAIL */],
+                    type: __WEBPACK_IMPORTED_MODULE_2__store_mutation_type__["f" /* UPDATE_PROFILE_EMAIL */],
                     value: value
                 });
             }
@@ -56430,8 +56442,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
         if (__WEBPACK_IMPORTED_MODULE_2__helpers_jwt__["a" /* default */].getToken()) {
+
+            this.$store.dispatch('firstLoadAuthUser');
+
             this.$store.dispatch('setAuthUser');
         } else if (__WEBPACK_IMPORTED_MODULE_3_js_cookie___default.a.get('refresh')) {
+
+            this.$store.dispatch('firstLoadAuthUser');
+
             this.$store.dispatch('refreshToken');
         } else {
             this.$store.dispatch('unsetAuthUser');
@@ -56692,10 +56710,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         level: 'success', //info error
         msg: null
     },
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SHOW_NOTIFICATION */], function (state, payload) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* SHOW_NOTIFICATION */], function (state, payload) {
         state.level = payload.notification.level;
         state.msg = payload.notification.msg;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* HIDE_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* HIDE_NOTIFICATION */], function (state, payload) {
         state.level = 'success';
         state.msg = null;
     }), _mutations),
@@ -56704,7 +56722,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SHOW_NOTIFICATION */],
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["d" /* SHOW_NOTIFICATION */],
                 notification: notification
 
             });
@@ -56713,7 +56731,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref2.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* HIDE_NOTIFICATION */]
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["b" /* HIDE_NOTIFICATION */]
             });
         }
     }

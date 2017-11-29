@@ -13,6 +13,9 @@ export default {
         [types.UPDATE_PROFILE_EMAIL](state, payload){
             state.email = payload.value;
         },
+        [types.FIRST_LOAD_AUTH_USER](state){
+            state.authenticated = true;
+        },
         [types.SET_AUTH_USER](state, payload){
             state.authenticated = true;
             state.name = payload.user.name;
@@ -36,7 +39,12 @@ export default {
                 dispatch('refreshToken')
             })
         },
+        firstLoadAuthUser({commit}){
+            commit({
+                    type: types.FIRST_LOAD_AUTH_USER,
+            });
 
+        },
         unsetAuthUser({commit}) {
 
                 commit({
