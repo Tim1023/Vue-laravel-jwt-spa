@@ -53303,6 +53303,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref.commit,
                 dispatch = _ref.dispatch;
 
+
             return axios.get('/api/user').then(function (response) {
                 commit({
                     type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["c" /* SET_AUTH_USER */],
@@ -53381,6 +53382,7 @@ var FIRST_LOAD_AUTH_USER = 'FIRST_LOAD_AUTH_USER';
             var dispatch = _ref.dispatch;
 
             return axios.post('/api/login', formData).then(function (response) {
+                dispatch('firstLoadAuthUser');
                 dispatch('loginSuccess', response.data);
             });
         },
@@ -53389,7 +53391,7 @@ var FIRST_LOAD_AUTH_USER = 'FIRST_LOAD_AUTH_USER';
 
             __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].setToken(tokenResponse.token);
             __WEBPACK_IMPORTED_MODULE_0__helpers_jwt__["a" /* default */].setRefreshToken(tokenResponse.refreshToken);
-            dispatch("setAuthUser");
+            return dispatch("setAuthUser");
         },
         logoutRequest: function logoutRequest(_ref3) {
             var dispatch = _ref3.dispatch;

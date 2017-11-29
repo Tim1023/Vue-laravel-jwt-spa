@@ -29,12 +29,14 @@ export default {
     },
     actions: {
         setAuthUser({commit, dispatch}){
+
             return axios.get('/api/user').then(response => {
                 commit({
                     type: types.SET_AUTH_USER,
                     user: response.data
 
                 });
+
             }).catch(error => {
                 dispatch('refreshToken')
             })
