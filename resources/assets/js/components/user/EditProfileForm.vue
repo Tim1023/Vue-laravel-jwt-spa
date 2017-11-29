@@ -73,12 +73,15 @@
         },
         methods:{
             updateProfile() {
-                const formData = {
-                    name: this.name,
-                    email: this.email
+                let formData = {
+                    data:{
+                        name: this.name,
+                        email: this.email
+                    },
+                    url: '/api/user/profile/update'
                 };
-                this.$store.dispatch('updateProfileRequest',formData).then(response => {
-                    this.$router.push({name:'profile'})
+                this.$store.dispatch('updateRequest',formData).then(response => {
+//                    this.$router.push({name:'profile'})
                 }).catch(error => {
 
                 })

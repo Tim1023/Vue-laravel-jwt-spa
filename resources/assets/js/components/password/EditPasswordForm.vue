@@ -62,9 +62,12 @@
                 this.$validator.validateAll().then(result => {
                     if (result) {
                         let formData = {
-                            password: this.password
+                            data:{
+                                password: this.password
+                            },
+                            url: '/api/user/password/update'
                         };
-                        this.$store.dispatch('updatePasswordRequest', formData)
+                        this.$store.dispatch('updateRequest', formData)
                             .then(response => {
 //                                this.$router.push({name: 'profile'})
                             })

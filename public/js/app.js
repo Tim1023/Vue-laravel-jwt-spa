@@ -22005,10 +22005,8 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_login__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_notification__ = __webpack_require__(108);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_update_request__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_notification__ = __webpack_require__(108);
 
 
 
@@ -22023,9 +22021,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
     modules: {
         AuthUser: __WEBPACK_IMPORTED_MODULE_2__modules_auth_user__["a" /* default */],
         Login: __WEBPACK_IMPORTED_MODULE_3__modules_login__["a" /* default */],
-        EditProfile: __WEBPACK_IMPORTED_MODULE_4__modules_edit_profile__["a" /* default */],
-        EditPassword: __WEBPACK_IMPORTED_MODULE_5__modules_edit_password__["a" /* default */],
-        Notification: __WEBPACK_IMPORTED_MODULE_6__modules_notification__["a" /* default */]
+        UpdateRequest: __WEBPACK_IMPORTED_MODULE_4__modules_update_request__["a" /* default */],
+        Notification: __WEBPACK_IMPORTED_MODULE_5__modules_notification__["a" /* default */]
     },
     strict: true
 }));
@@ -55709,14 +55706,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         updateProfile: function updateProfile() {
-            var _this = this;
-
             var formData = {
-                name: this.name,
-                email: this.email
+                data: {
+                    name: this.name,
+                    email: this.email
+                },
+                url: '/api/user/profile/update'
             };
-            this.$store.dispatch('updateProfileRequest', formData).then(function (response) {
-                _this.$router.push({ name: 'profile' });
+            this.$store.dispatch('updateRequest', formData).then(function (response) {
+                //                    this.$router.push({name:'profile'})
             }).catch(function (error) {});
         }
     }
@@ -56132,9 +56130,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     var formData = {
-                        password: _this.password
+                        data: {
+                            password: _this.password
+                        },
+                        url: '/api/user/password/update'
                     };
-                    _this.$store.dispatch('updatePasswordRequest', formData).then(function (response) {
+                    _this.$store.dispatch('updateRequest', formData).then(function (response) {
                         //                                this.$router.push({name: 'profile'})
                     }).catch(function (error) {
                         //
@@ -56673,44 +56674,8 @@ if (false) {
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    actions: {
-        updateProfileRequest: function updateProfileRequest(_ref, formData) {
-            var dispatch = _ref.dispatch;
-
-            return axios.post('/api/user/profile/update', formData).then(function (response) {
-                //
-            }).catch(function (errors) {});
-        }
-    }
-});
-
-/***/ }),
-/* 107 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    actions: {
-        updatePasswordRequest: function updatePasswordRequest(_ref, formData) {
-            var dispatch = _ref.dispatch;
-
-            return axios.post('/api/user/password/update', formData).then(function (response) {
-                dispatch('showNotification', { level: 'success', msg: 'Update Password success' });
-            }).catch(function (errors) {
-                dispatch('showNotification', { level: 'error', msg: 'Update Password failed' });
-            });
-        }
-    }
-});
-
-/***/ }),
+/* 106 */,
+/* 107 */,
 /* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56914,6 +56879,26 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-6627495a", module.exports)
   }
 }
+
+/***/ }),
+/* 112 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    actions: {
+        updateRequest: function updateRequest(_ref, formData) {
+            var dispatch = _ref.dispatch;
+
+            return axios.post(formData.url, formData.data).then(function (response) {
+                dispatch('showNotification', { level: 'success', msg: 'Update success' });
+            }).catch(function (errors) {
+                dispatch('showNotification', { level: 'error', msg: 'Update failed' });
+            });
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
