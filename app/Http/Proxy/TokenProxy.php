@@ -64,7 +64,7 @@ class TokenProxy{
             'scope'         => '',
 
         ]);
-        $response = $this->http->post('http://vue-spa.dev/oauth/token', [
+        $response = $this->http->post('http://vue-spa.test/oauth/token', [
             'form_params' => $data
         ]);
 
